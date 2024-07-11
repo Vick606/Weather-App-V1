@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/https://github.com/Vick606/Weather-App-V1/'
+    publicPath: '/Weather-App-V1/' 
   },
   module: {
     rules: [
@@ -23,4 +23,13 @@ module.exports = {
     }),
     new Dotenv()
   ],
+  devServer: { 
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
+    hot: true,
+    historyApiFallback: true,
+  },
 };
