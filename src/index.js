@@ -1,14 +1,22 @@
 import './style.css';
 
 const API_KEY = process.env.WEATHER_API_KEY;
-const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+const BASE_URL = 'http://api.weatherapi.com/v1/current.json';
+
 
 async function getWeatherData(location) {
     try {
-        const response = await fetch(`${BASE_URL}?q=${location}&appid=${API_KEY}&units=metric`);
-        if (!response.ok) throw new Error('Location not found');
+        console.log('Fetching weather for:', location);
+        const response = await fetch(`${BASE_URL}?key=${API_KEY}&q=${location}`);
+        console.log('Response status:', response.status);
         const data = await response.json();
-        return processWeatherData(data);
+        console.log('API Response:', data);
+        
+        if (response.ok) {
+            return processWeatherData(data);
+        } else {
+            throw new Error(data.error.message || 'Location not found');
+        }
     } catch (error) {
         console.error('Error fetching weather data:', error);
         throw error;
@@ -17,12 +25,12 @@ async function getWeatherData(location) {
 
 function processWeatherData(data) {
     return {
-        location: data.name,
-        temperature: data.main.temp,
-        description: data.weather[0].description,
-        humidity: data.main.humidity,
-        windSpeed: data.wind.speed,
-        icon: data.weather[0].icon
+        location: data.location.name,
+        temperature: data.current.temp_c,
+        description: data.current.condition.text,
+        humidity: data.current.humidity,
+        windSpeed: data.current.wind_kph,
+        icon: data.current.condition.icon
     };
 }
 
