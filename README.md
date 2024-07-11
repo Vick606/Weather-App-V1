@@ -35,7 +35,7 @@ Through this project, I've gained hands-on experience with:
 
 1. Clone this repository
 2. Run `npm install` to install dependencies
-3. Create a `.env` file in the root directory and add your OpenWeatherMap API key.
+3. Create a `.env` file in the root directory and add your API key.
 
 4. Run `npm start` for development mode
 5. Run `npm run build` for production build
